@@ -5,114 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dustin's Lowes Receipt Template</title>
     <style>
+        :root {
+            --lowes-red: #c81f1f;
+            --lowes-red-dark: #a10f1d;
+            --lowes-blue: #0a2f6d;
+            --lowes-blue-light: #1b4b9a;
+            --text-dark: #1f2937;
+            --muted: #6b7280;
+            --panel: #ffffff;
+            --soft: #f5f7fa;
+            --border: #e5e7eb;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f0f2f5;
             margin: 0;
             padding: 20px;
+            color: var(--text-dark);
         }
+
         .receipt-container {
-            max-width: 600px;
+            max-width: 640px;
             margin: auto;
-            background: #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            background: var(--panel);
+            box-shadow: 0 10px 30px rgba(10, 47, 109, 0.12);
+            border: 1px solid var(--border);
         }
+
         .nav {
             display: flex;
             justify-content: space-around;
-            padding: 15px 10px;
+            align-items: center;
+            padding: 14px 12px;
             font-size: 11px;
-            font-weight: bold;
-            color: #001f70;
-            border-bottom: 1px solid #eee;
+            font-weight: 700;
+            color: var(--lowes-blue);
+            border-bottom: 1px solid var(--border);
+            background: #f9fafb;
             text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
+
         .header {
-            background: linear-gradient(to bottom, #001f70, #00a0e9);
+            background: linear-gradient(180deg, var(--lowes-blue) 0%, var(--lowes-blue-light) 100%);
             color: white;
-            padding: 30px 20px;
+            padding: 30px 22px 26px;
         }
+
         .header h1 {
-            margin: 0 0 15px 0;
-            font-size: 28px;
+            margin: 0 0 16px 0;
+            font-size: 30px;
+            letter-spacing: 0.02em;
         }
+
         .header p {
-            margin: 5px 0;
+            margin: 6px 0;
             font-size: 14px;
-            line-height: 1.4;
+            line-height: 1.5;
         }
+
         .editable-field {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px dashed rgba(255, 255, 255, 0.5);
-            padding: 2px 5px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px dashed rgba(255, 255, 255, 0.55);
+            padding: 2px 6px;
             color: white;
             font-family: inherit;
             font-size: inherit;
             width: 250px;
+            box-sizing: border-box;
         }
+
         .header-btn {
             display: inline-block;
-            background-color: #001244;
+            background-color: var(--lowes-red);
             color: white;
-            padding: 10px 40px;
+            padding: 11px 38px;
             text-decoration: none;
             border-radius: 4px;
             margin-top: 20px;
             text-align: center;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(200, 31, 31, 0.2);
         }
+
         .section {
-            padding: 20px;
-            border-bottom: 1px solid #eee;
+            padding: 20px 20px 18px;
+            border-bottom: 1px solid var(--border);
+            background: #fff;
         }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
         .section-title {
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 15px;
-            color: #333;
+            color: var(--lowes-blue);
         }
+
         .item-row {
-            border: 1px solid #eee;
+            border: 1px solid var(--border);
             padding: 15px;
             margin-bottom: 10px;
-            border-radius: 5px;
-            background: #fafafa;
+            border-radius: 6px;
+            background: var(--soft);
         }
+
         .item-row input[type="text"] {
             width: 100%;
-            margin-bottom: 5px;
-            padding: 5px;
-            border: 1px solid #ccc;
+            margin-bottom: 6px;
+            padding: 6px 8px;
+            border: 1px solid #cfd8e3;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
+
         .item-row .calc-inputs {
             display: flex;
             gap: 10px;
             align-items: center;
             margin-top: 10px;
+            flex-wrap: wrap;
         }
+
         .calc-inputs input[type="number"] {
-            width: 80px;
+            width: 82px;
             padding: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid #cfd8e3;
+            border-radius: 4px;
         }
+
         .remove-btn {
-            background: #cc0000;
+            background: var(--lowes-red);
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 6px 10px;
             cursor: pointer;
             font-size: 12px;
             border-radius: 3px;
+            font-weight: 700;
         }
+
         .add-btn {
-            background: #0070d0;
+            background: var(--lowes-blue);
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 10px 16px;
             cursor: pointer;
-            border-radius: 3px;
+            border-radius: 4px;
             margin-top: 10px;
-            font-weight: bold;
+            font-weight: 700;
         }
+
         .totals-grid {
             display: grid;
             grid-template-columns: 1fr 100px;
@@ -121,47 +168,72 @@
             font-size: 14px;
             margin-top: 20px;
         }
+
         .totals-grid div {
             padding: 5px 0;
         }
+
         .total-row {
-            font-weight: bold;
+            font-weight: 700;
             font-size: 16px;
-            border-top: 2px solid #333;
+            border-top: 2px solid var(--text-dark);
             padding-top: 10px;
+            color: var(--lowes-blue);
         }
+
         .tax-input {
-            width: 50px;
+            width: 52px;
             text-align: right;
-            border: 1px solid #ccc;
+            border: 1px solid #cfd8e3;
             padding: 2px;
+            border-radius: 3px;
         }
+
         .order-details {
             font-size: 12px;
-            color: #555;
+            color: #404b5a;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 5px;
+            gap: 6px 12px;
         }
+
         .footer {
             text-align: center;
-            padding: 20px;
+            padding: 20px 20px 24px;
             font-size: 12px;
-            color: #666;
+            color: var(--muted);
             background: #fff;
         }
+
+        .footer h3 {
+            color: var(--lowes-blue);
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
         .footer a {
-            color: #001f70;
+            color: var(--lowes-blue);
             text-decoration: none;
             margin: 0 10px;
+            font-weight: 600;
         }
-        
-        /* Hide buttons when printing */
+
+        .brand-mark {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 7px 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 3px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
         @media print {
             .no-print { display: none !important; }
-            .item-row input, .editable-field, .tax-input { 
-                border: none; 
-                background: transparent; 
+            .item-row input, .editable-field, .tax-input {
+                border: none;
+                background: transparent;
                 padding: 0;
             }
         }
@@ -170,15 +242,13 @@
 <body>
 
 <div class="receipt-container">
-    <!-- Navigation -->
     <div class="nav">
-        <span>TOOLS</span>
-        <span>BATHROOM</span>
-        <span>LOWES</span>
-        <span>APPLIANCES</span>
+        <span>Tools</span>
+        <span>Bathroom</span>
+        <span>Lowes</span>
+        <span>Appliances</span>
     </div>
 
-    <!-- Header Section -->
     <div class="header">
         <h1>Your Lowes Receipt</h1>
         <p>Order # <input type="text" class="editable-field" value="202729261261940823"></p>
@@ -187,16 +257,15 @@
         <br>
         <p>Thank you for shopping at Dustin's Lowes. Use this just like you would a paper receipt for proof of purchase, record keeping, returns and more.</p>
         <br>
-        <p style="font-weight: bold;">DUSTIN'S LOWES, LLC</p>
+        <div class="brand-mark">DUSTIN'S LOWES, LLC</div>
+        <br>
         <a href="#" class="header-btn no-print">My Account</a>
     </div>
 
-    <!-- Items Section -->
     <div class="section">
         <div class="section-title">Purchased Item(s)</div>
-        
+
         <div id="items-container">
-            <!-- Default Item Row -->
             <div class="item-row">
                 <input type="text" value="DW HP 4-1/2-IN X FAST ABA" placeholder="Item Description">
                 <input type="text" value="Item #: 841577 | Model #: DWA8062F" placeholder="Item/Model Numbers">
@@ -208,28 +277,26 @@
                 </div>
             </div>
         </div>
-        
+
         <button class="add-btn no-print" onclick="addItem()">+ Add Another Item</button>
     </div>
 
-    <!-- Totals Section -->
     <div class="section">
         <div style="font-size: 14px;">Total # of items purchased: <strong id="display-qty">1</strong></div>
-        
+
         <div class="totals-grid">
             <div>Subtotal</div>
             <div id="display-subtotal">$4.98</div>
-            
+
             <div>Tax Rate (%) <input type="number" id="tax-rate" class="tax-input no-print" value="8.43" step="0.01" onchange="calculateMath()"></div>
             <div id="display-tax">$0.42</div>
-            
+
             <div class="total-row">Total</div>
             <div class="total-row" id="display-total">$5.40</div>
         </div>
         <p style="font-size:11px; color:#777; text-align:right; margin-top:5px;">Excludes fees, services and special order items</p>
     </div>
 
-    <!-- Order Details Section -->
     <div class="section">
         <div class="section-title">Order Details</div>
         <div class="order-details">
@@ -246,20 +313,19 @@
         </div>
     </div>
 
-    <!-- Footer & Policies Section -->
     <div class="footer">
         <h3>Lowes Return Policy</h3>
         <p>You can return or exchange most new, unused merchandise with proof of purchase within 90 days of the original purchase date unless noted in our return policy exceptions.</p>
         <p>See Return Policy and Exceptions for details.</p>
         <hr style="border:0; border-top:1px solid #ddd; margin: 20px 0;">
         <p>
-            <a href="#">My Account</a> | 
-            <a href="#">Contact Us</a> | 
+            <a href="#">My Account</a> |
+            <a href="#">Contact Us</a> |
             <a href="#">Find a Store</a>
         </p>
         <p>
-            <a href="#">Privacy Statement</a> | 
-            <a href="#">Billing Policy</a> | 
+            <a href="#">Privacy Statement</a> |
+            <a href="#">Billing Policy</a> |
             <a href="#">Return & Refund Policy</a>
         </p>
         <p><strong>Lowes.com</strong></p>
@@ -269,29 +335,25 @@
 </div>
 
 <script>
-    // Function to recalculate all totals
     function calculateMath() {
         const rows = document.querySelectorAll('.item-row');
         let subtotal = 0;
         let totalQty = 0;
 
-        // Calculate each row
         rows.forEach(row => {
             const price = parseFloat(row.querySelector('.price').value) || 0;
             const qty = parseFloat(row.querySelector('.qty').value) || 0;
             const itemSubtotal = price * qty;
-            
+
             row.querySelector('.item-subtotal').innerText = '$' + itemSubtotal.toFixed(2);
             subtotal += itemSubtotal;
             totalQty += qty;
         });
 
-        // Calculate Tax & Total
         const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
         const tax = subtotal * (taxRate / 100);
         const total = subtotal + tax;
 
-        // Update DOM
         document.getElementById('display-qty').innerText = totalQty;
         document.getElementById('display-subtotal').innerText = '$' + subtotal.toFixed(2);
         document.getElementById('display-tax').innerText = '$' + tax.toFixed(2);
@@ -299,7 +361,6 @@
         document.getElementById('display-payment').innerText = '$' + total.toFixed(2);
     }
 
-    // Function to add a new item row
     function addItem() {
         const container = document.getElementById('items-container');
         const newRow = document.createElement('div');
@@ -318,13 +379,11 @@
         calculateMath();
     }
 
-    // Function to remove an item row
     function removeItem(button) {
         button.closest('.item-row').remove();
         calculateMath();
     }
 
-    // Initial calculation on load
     window.onload = calculateMath;
 </script>
 
