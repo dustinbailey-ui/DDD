@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dustin's Daily Deals Receipt Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .receipt-container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 10px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #001f70;
+            border-bottom: 1px solid #eee;
+            text-transform: uppercase;
+        }
+        .header {
+            background: linear-gradient(to bottom, #001f70, #00a0e9);
+            color: white;
+            padding: 30px 20px;
+        }
+        .header h1 {
+            margin: 0 0 15px 0;
+            font-size: 28px;
+        }
+        .header p {
+            margin: 5px 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .editable-field {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px dashed rgba(255, 255, 255, 0.5);
+            padding: 2px 5px;
+            color: white;
+            font-family: inherit;
+            font-size: inherit;
+            width: 250px;
+        }
+        .header-btn {
+            display: inline-block;
+            background-color: #001244;
+            color: white;
+            padding: 10px 40px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .section {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .item-row {
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background: #fafafa;
+        }
+        .item-row input[type="text"] {
+            width: 100%;
+            margin-bottom: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        .item-row .calc-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .calc-inputs input[type="number"] {
+            width: 80px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        .remove-btn {
+            background: #cc0000;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+        .add-btn {
+            background: #0070d0;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .totals-grid {
+            display: grid;
+            grid-template-columns: 1fr 100px;
+            gap: 10px;
+            text-align: right;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        .totals-grid div {
+            padding: 5px 0;
+        }
+        .total-row {
+            font-weight: bold;
+            font-size: 16px;
+            border-top: 2px solid #333;
+            padding-top: 10px;
+        }
+        .tax-input {
+            width: 50px;
+            text-align: right;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
+        .order-details {
+            font-size: 12px;
+            color: #555;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+            background: #fff;
+        }
+        .footer a {
+            color: #001f70;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        /* Hide buttons when printing */
+        @media print {
+            .no-print { display: none !important; }
+            .item-row input, .editable-field, .tax-input { 
+                border: none; 
+                background: transparent; 
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="receipt-container">
+    <!-- Navigation -->
+    <div class="nav">
+        <span>TOOLS</span>
+        <span>BATHROOM</span>
+        <span>DAILY DEALS</span>
+        <span>APPLIANCES</span>
+    </div>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Your DDD Receipt</h1>
+        <p>Order # <input type="text" class="editable-field" value="202729261261940823"></p>
+        <p>Transaction # <input type="text" class="editable-field" value="715647377"></p>
+        <p>Order Date: <input type="text" class="editable-field" value="Placed September 18, 2026 - 17:46:44"></p>
+        <br>
+        <p>Thank you for shopping at Dustin's Daily Deals. Use this just like you would a paper receipt for proof of purchase, record keeping, returns and more.</p>
+        <br>
+        <p style="font-weight: bold;">DUSTIN'S DAILY DEALS, LLC</p>
+        <a href="#" class="header-btn no-print">My Account</a>
+    </div>
+
+    <!-- Items Section -->
+    <div class="section">
+        <div class="section-title">Purchased Item(s)</div>
+        
+        <div id="items-container">
+            <!-- Default Item Row -->
+            <div class="item-row">
+                <input type="text" value="DW HP 4-1/2-IN X FAST ABA" placeholder="Item Description">
+                <input type="text" value="Item #: 841577 | Model #: DWA8062F" placeholder="Item/Model Numbers">
+                <div class="calc-inputs">
+                    <label>Price ($): <input type="number" class="price" value="4.98" step="0.01" onchange="calculateMath()"></label>
+                    <label>QTY: <input type="number" class="qty" value="1" min="1" onchange="calculateMath()"></label>
+                    <span style="margin-left:auto;">Subtotal: <strong class="item-subtotal">$4.98</strong></span>
+                    <button class="remove-btn no-print" onclick="removeItem(this)">X</button>
+                </div>
+            </div>
+        </div>
+        
+        <button class="add-btn no-print" onclick="addItem()">+ Add Another Item</button>
+    </div>
+
+    <!-- Totals Section -->
+    <div class="section">
+        <div style="font-size: 14px;">Total # of items purchased: <strong id="display-qty">1</strong></div>
+        
+        <div class="totals-grid">
+            <div>Subtotal</div>
+            <div id="display-subtotal">$4.98</div>
+            
+            <div>Tax Rate (%) <input type="number" id="tax-rate" class="tax-input no-print" value="8.43" step="0.01" onchange="calculateMath()"></div>
+            <div id="display-tax">$0.42</div>
+            
+            <div class="total-row">Total</div>
+            <div class="total-row" id="display-total">$5.40</div>
+        </div>
+        <p style="font-size:11px; color:#777; text-align:right; margin-top:5px;">Excludes fees, services and special order items</p>
+    </div>
+
+    <!-- Order Details Section -->
+    <div class="section">
+        <div class="section-title">Order Details</div>
+        <div class="order-details">
+            <div>Payment: <strong id="display-payment">$5.40</strong></div>
+            <div>Order Date: <span contenteditable="true">09/18/26 17:46:44</span></div>
+            <div>Auth Time: <span contenteditable="true">09/18/26 17:46:17</span></div>
+            <div>Store #: <span contenteditable="true">2729</span></div>
+            <div>AuthCD: <span contenteditable="true">358929</span></div>
+            <div>Terminal #: <span contenteditable="true">21</span></div>
+            <div>REFID: <span contenteditable="true">272921099782</span></div>
+            <div style="grid-column: span 2; margin-top: 10px;">
+                <strong>VISA</strong> **** **** **** <span contenteditable="true">4746</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer & Policies Section -->
+    <div class="footer">
+        <h3>DDD Return Policy</h3>
+        <p>You can return or exchange most new, unused merchandise with proof of purchase within 90 days of the original purchase date unless noted in our return policy exceptions.</p>
+        <p>See Return Policy and Exceptions for details.</p>
+        <hr style="border:0; border-top:1px solid #ddd; margin: 20px 0;">
+        <p>
+            <a href="#">My Account</a> | 
+            <a href="#">Contact Us</a> | 
+            <a href="#">Find a Store</a>
+        </p>
+        <p>
+            <a href="#">Privacy Statement</a> | 
+            <a href="#">Billing Policy</a> | 
+            <a href="#">Return & Refund Policy</a>
+        </p>
+        <p><strong>DDD.com</strong></p>
+        <p>1000 DDD Boulevard, Mooresville, NC 28117</p>
+        <p>© 2026 Dustin's Daily Deals. All rights reserved.</p>
+    </div>
+</div>
+
+<script>
+    // Function to recalculate all totals
+    function calculateMath() {
+        const rows = document.querySelectorAll('.item-row');
+        let subtotal = 0;
+        let totalQty = 0;
+
+        // Calculate each row
+        rows.forEach(row => {
+            const price = parseFloat(row.querySelector('.price').value) || 0;
+            const qty = parseFloat(row.querySelector('.qty').value) || 0;
+            const itemSubtotal = price * qty;
+            
+            row.querySelector('.item-subtotal').innerText = '$' + itemSubtotal.toFixed(2);
+            subtotal += itemSubtotal;
+            totalQty += qty;
+        });
+
+        // Calculate Tax & Total
+        const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
+        const tax = subtotal * (taxRate / 100);
+        const total = subtotal + tax;
+
+        // Update DOM
+        document.getElementById('display-qty').innerText = totalQty;
+        document.getElementById('display-subtotal').innerText = '$' + subtotal.toFixed(2);
+        document.getElementById('display-tax').innerText = '$' + tax.toFixed(2);
+        document.getElementById('display-total').innerText = '$' + total.toFixed(2);
+        document.getElementById('display-payment').innerText = '$' + total.toFixed(2);
+    }
+
+    // Function to add a new item row
+    function addItem() {
+        const container = document.getElementById('items-container');
+        const newRow = document.createElement('div');
+        newRow.className = 'item-row';
+        newRow.innerHTML = `
+            <input type="text" value="" placeholder="Item Description">
+            <input type="text" value="" placeholder="Item/Model Numbers">
+            <div class="calc-inputs">
+                <label>Price ($): <input type="number" class="price" value="0.00" step="0.01" onchange="calculateMath()"></label>
+                <label>QTY: <input type="number" class="qty" value="1" min="1" onchange="calculateMath()"></label>
+                <span style="margin-left:auto;">Subtotal: <strong class="item-subtotal">$0.00</strong></span>
+                <button class="remove-btn no-print" onclick="removeItem(this)">X</button>
+            </div>
+        `;
+        container.appendChild(newRow);
+        calculateMath();
+    }
+
+    // Function to remove an item row
+    function removeItem(button) {
+        button.closest('.item-row').remove();
+        calculateMath();
+    }
+
+    // Initial calculation on load
+    window.onload = calculateMath;
+</script>
+
+</body>
+</html>
